@@ -1,10 +1,10 @@
-# jenkins-runner
+# jmeter-runner
 A container image that contains Jenkins to be used within a CI/CD pipeline
 
 Jmeter is downloaded and available in the `/opt/jmeter/bin` folder.
 It works best with the script library that was created for jenkins, available here: https://github.com/dynatrace-ace/jenkins-test-library
 
-- [jenkins-runner](#jenkins-runner)
+- [jmeter-runner](#jmeter-runner)
   - [Using the jmeter-runner in a Jenkins environment with Kubernetes integration](#using-the-jmeter-runner-in-a-jenkins-environment-with-kubernetes-integration)
 
 ## Using the jmeter-runner in a Jenkins environment with Kubernetes integration
