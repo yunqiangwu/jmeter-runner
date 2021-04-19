@@ -1,11 +1,12 @@
 # jmeter-runner
-A container image that contains Jenkins to be used within a CI/CD pipeline
+A container image that contains Jmeter to be used within a CI/CD pipeline
 
 Jmeter is downloaded and available in the `/opt/jmeter/bin` folder.
 It works best with the script library that was created for jenkins, available here: https://github.com/dynatrace-ace/jenkins-test-library
 
 - [jmeter-runner](#jmeter-runner)
   - [Using the jmeter-runner in a Jenkins environment with Kubernetes integration](#using-the-jmeter-runner-in-a-jenkins-environment-with-kubernetes-integration)
+  - [Sample GitLab usage](#sample-gitlab-usage)
 
 ## Using the jmeter-runner in a Jenkins environment with Kubernetes integration
 > Note: the screenshots are for indicative pruposes only, the values need to be adjusted to the guide!
@@ -75,3 +76,6 @@ It works best with the script library that was created for jenkins, available he
     }
     }
     ```
+## Sample GitLab usage
+1. Check out the [.gitlab-ci.yml](/samples/gitlab/.gitlab-ci.yml) file to add to your GitLab pipeline
+2. Check out the sample include [run-jmeter.yaml](/samples/gitlab/run-jmeter.yaml)
