@@ -1,0 +1,59 @@
+run-jmeter:
+  image: dynatraceace/jmeter-runner:release-v5.4.1
+  variables:
+    GIT_STRATEGY: fetch
+  script: |
+    VUCOUNT_DEFAULT=2
+    LOOPCOUNT_DEFAULT=150
+    THINKTIME_DEFAULT=100
+
+    if [ "$SERVER_URL" = "" ]; then
+        echo "SERVER_URL has not been set!"
+        exit 1
+    fi
+
+    if [ "$SERVER_PORT" = "" ]; then
+        echo "SERVER_PORT has not been set"
+        exit 1
+    fi
+
+    if [ "$TEST_FILE" = "" ]; then
+        echo "TEST_FILE has not been set!"
+        exit 1
+    fi
+
+    if [ "$VUCOUNT" = "" ]; then
+        echo "VUCOUNT has not been set, defaulting to $VUCOUNT_DEFAULT"
+        VUCOUNT=$VUCOUNT_DEFAULT
+    fi
+
+    if [ "$LOOPCOUNT" = "" ]; then
+        echo "LOOPCOUNT has not been set, defaulting to $LOOPCOUNT_DEFAULT"
+        LOOPCOUNT=$LOOPCOUNT_DEFAULT
+    fi
+
+    if [ "$THINKTIME" = "" ]; then
+        echo "THINKTIME has not been set, defaulting to $THINKTIME_DEFAULT"
+        THINKTIME=$THINKTIME_DEFAULT
+    fi
+
+    echo "Starting Jmeter test"
+    echo "Server URL - $SERVER_URL"
+    echo "Server Port - $SERVER_PORT"
+    echo "VUCOUNT - $VUCOUNT"
+    echo "LOOPCOUNT - $LOOPCOUNT"
+    echo "THINKTIME - $THINKTIME"
+
+    /opt/jmeter/bin/jmeter -n -t ./${TEST_FILE} \
+      -l ${CI_ENVIRONMENT_SLUG}_perf.tlf \
+      -JSERVER_URL="${SERVER_URL}" \
+      -JSERVER_PORT="${SERVER_PORT}" \
+      -JVUCount="${VUCOUNT}" \
+      -JLoopCount="${LOOPCOUNT}" \
+      -JThinkTime="${THINKTIME}" \
+      -JDT_LTN="PerfCheck_${CI_COMMIT_SHA}"
+
+  artifacts:
+    paths:
+      - ${CI_ENVIRONMENT_SLUG}_perf.tlf
+      - keptn.test.${CI_PIPELINE_IID}.json
