@@ -1,5 +1,4 @@
-include:
-  - remote: 'https://raw.githubusercontent.com/dynatrace-ace/jmeter-runner/main/samples/gitlab/run-jmeter.yaml'
+include: ./run-jmeter.yaml
  
 stages:
   - test
@@ -15,3 +14,6 @@ run-jmeter:
     LOOPCOUNT: 1
     THINKTIME: 100
     TEST_FILE: myjmxfile.jmx
+
+
+
